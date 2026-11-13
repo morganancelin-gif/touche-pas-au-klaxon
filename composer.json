@@ -1,0 +1,33 @@
+{
+    "name": "morganancelin-gif/touche-pas-au-klaxon",
+    "description": "Application intranet de covoiturage inter-sites (MVC PHP)",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.2",
+        "izniburak/router": "^3.1",
+        "vlucas/phpdotenv": "^5.8"
+    },
+    "autoload": {
+        "psr-4": { "App\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Tests\\": "tests/" }
+    },
+    "config": {
+        "platform": { "php": "8.2.4" },
+        "sort-packages": true
+    },
+    "scripts": {
+        "start": [
+            "Composer\\Config::disableProcessTimeout",
+            "php -S localhost:4000 -t public"
+        ],
+        "test": "phpunit",
+        "stan": "phpstan analyse"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.3",
+        "phpunit/phpunit": "^11.5"
+    }
+}
