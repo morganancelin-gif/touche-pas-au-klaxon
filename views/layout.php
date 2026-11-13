@@ -4,6 +4,9 @@
  *
  * @var string $content HTML de la page, produit par la vue.
  */
+
+use App\Core\Flash;
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -18,6 +21,13 @@
     <?php require __DIR__ . '/partials/header.php'; ?>
 
     <main class="container flex-grow-1 my-4">
+        <?php foreach (Flash::consume() as $flash) : ?>
+            <div class="alert alert-<?= e($flash['type']) ?> alert-dismissible fade show" role="alert">
+                <?= e($flash['message']) ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+            </div>
+        <?php endforeach; ?>
+
         <?= $content ?>
     </main>
 

@@ -9,6 +9,7 @@
 
 declare(strict_types=1);
 
+use App\Core\Session;
 use Buki\Router\Router;
 use Dotenv\Dotenv;
 
@@ -27,7 +28,10 @@ error_reporting(E_ALL);
 ini_set('display_errors', $debug ? '1' : '0');
 date_default_timezone_set('Europe/Paris');
 
-// 2. Routeur
+// 2. Session (utilisateur connecté, messages flash, jeton CSRF)
+Session::start();
+
+// 3. Routeur
 $router = new Router([
     'base_folder' => __DIR__,
     'paths'       => [
@@ -43,7 +47,7 @@ $router = new Router([
 
 require $rootPath . '/config/routes.php';
 
-// 3. Pages d'erreur (le détail technique n'est jamais montré à l'utilisateur)
+// 4. Pages d'erreur (le détail technique n'est jamais montré à l'utilisateur)
 $router->notFound(function (): string {
     return '<h1>Page introuvable</h1><p><a href="/">Retour à l\'accueil</a></p>';
 });

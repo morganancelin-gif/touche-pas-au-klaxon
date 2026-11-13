@@ -47,6 +47,28 @@ abstract class Controller
         exit;
     }
 
+        /**
+     * Lit un champ texte envoyé en POST, de façon défensive.
+     *
+     * Retourne une chaîne vide si le champ est absent ou n'est pas une chaîne
+     * (un attaquant peut envoyer un tableau à la place d'un texte).
+     *
+     * @param string $key  Nom du champ.
+     * @param bool   $trim Supprimer les espaces en début et fin (false pour un mot de passe).
+     *
+     * @return string
+     */
+    protected function input(string $key, bool $trim = true): string
+    {
+        $value = $_POST[$key] ?? '';
+
+        if (!is_string($value)) {
+            return '';
+        }
+
+        return $trim ? trim($value) : $value;
+    }
+
     /**
      * Exécute un fichier de vue et retourne le HTML produit.
      *
