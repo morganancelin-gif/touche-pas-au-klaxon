@@ -6,7 +6,7 @@
   "directories": {
     "test": "tests"
   },
-    "scripts": {
+  "scripts": {
     "sass:build": "sass --load-path=node_modules --style=compressed --no-source-map --quiet-deps --silence-deprecation=import scss/app.scss public/css/app.css",
     "sass:watch": "sass --watch --load-path=node_modules --quiet-deps --silence-deprecation=import scss/app.scss public/css/app.css",
     "js:copy": "node -e \"const fs=require('fs');fs.mkdirSync('public/js',{recursive:true});fs.copyFileSync('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js','public/js/bootstrap.bundle.min.js')\"",
@@ -20,6 +20,7 @@
     "bootstrap": "^5.3.9"
   },
   "devDependencies": {
+    "bootstrap-icons": "^1.13.2",
     "sass": "^1.108.2"
   }
 }

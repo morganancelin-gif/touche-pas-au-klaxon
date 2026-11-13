@@ -46,4 +46,43 @@ if (!function_exists('formatHeure')) {
     {
         return (new DateTimeImmutable($datetime))->format('H:i');
     }
+
+
+if (!function_exists('formatTelephone')) {
+    /**
+     * Formate un numéro de téléphone français par paires : 06 12 34 56 78.
+     *
+     * @param string $telephone Numéro brut (ex. "0612345678").
+     *
+     * @return string Le numéro formaté, ou tel quel s'il ne fait pas 10 chiffres.
+     */
+    function formatTelephone(string $telephone): string
+    {
+        $chiffres = preg_replace('/\D/', '', $telephone) ?? '';
+
+        return strlen($chiffres) === 10 ? trim(chunk_split($chiffres, 2, ' ')) : $telephone;
+    }
+}
+
+if (!function_exists('icon')) {
+    /**
+     * Retourne le code SVG d'une icône du dossier views/icons (icônes Bootstrap Icons).
+     *
+     * @param string $name Nom de l'icône, sans extension (ex. "eye").
+     *
+     * @return string Le SVG, ou une chaîne vide si l'icône n'existe pas.
+     */
+    function icon(string $name): string
+    {
+        // basename() empêche de sortir du dossier (ex. "../../.env").
+        $file = __DIR__ . '/../../views/icons/' . basename($name) . '.svg';
+
+        if (!is_file($file)) {
+            return '';
+        }
+
+        // Icône décorative : masquée aux lecteurs d'écran (le bouton porte un aria-label).
+        return str_replace('<svg ', '<svg aria-hidden="true" ', (string) file_get_contents($file));
+    }
+}
 }

@@ -22,3 +22,6 @@ $router->get('/', 'HomeController@index');
 $router->get('/login', 'AuthController@loginForm');
 $router->post('/login', 'AuthController@login', ['before' => 'CsrfMiddleware']);
 $router->post('/logout', 'AuthController@logout', ['before' => ['CsrfMiddleware', 'AuthMiddleware']]);
+
+// Trajets (utilisateurs connectés)
+$router->post('/trajet/:id/supprimer', 'TrajetController@delete', ['before' => ['CsrfMiddleware', 'AuthMiddleware']]);
