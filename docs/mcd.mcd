@@ -1,0 +1,7 @@
+ARRIVER, 11 TRAJET, 0N AGENCE
+TRAJET: id_trajet, date_heure_depart, date_heure_arrivee, nb_places_total, nb_places_disponibles
+PROPOSER, 0N EMPLOYE, 11 TRAJET
+
+AGENCE: id_agence, nom
+DEPART, 11 TRAJET, 0N AGENCE
+EMPLOYE: id_employe, nom, prenom, telephone, email, mot_de_passe, role
