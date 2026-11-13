@@ -1,0 +1,27 @@
+MLD - Touche pas au klaxon
+==========================
+
+EMPLOYE (id_employe, nom, prenom, telephone, email, mot_de_passe, role)
+AGENCE  (id_agence, nom)
+TRAJET  (id_trajet, date_heure_depart, date_heure_arrivee, nb_places_total,
+         nb_places_disponibles, #id_employe, #id_agence_depart, #id_agence_arrivee)
+
+Légende
+-------
+- Premier attribut de chaque relation : clé primaire
+- # : clé étrangère
+
+Clés étrangères
+---------------
+- TRAJET.id_employe        -> EMPLOYE.id_employe  (auteur et personne à contacter)
+- TRAJET.id_agence_depart  -> AGENCE.id_agence
+- TRAJET.id_agence_arrivee -> AGENCE.id_agence
+
+Contraintes (règles de gestion)
+-------------------------------
+- RG1 : id_agence_depart <> id_agence_arrivee
+- RG2 : date_heure_arrivee > date_heure_depart
+- RG3 : nb_places_total >= 1 et 0 <= nb_places_disponibles <= nb_places_total
+- RG4 : EMPLOYE.email unique, AGENCE.nom unique
+- RG5 : suppression d'une agence interdite si elle est utilisée par un trajet
+- RG6 : modification et suppression d'un trajet réservées à son auteur ou à un admin (contrôle applicatif)

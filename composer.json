@@ -8,8 +8,9 @@
         "izniburak/router": "^3.1",
         "vlucas/phpdotenv": "^5.8"
     },
-    "autoload": {
-        "psr-4": { "App\\": "src/" }
+        "autoload": {
+        "psr-4": { "App\\": "src/" },
+        "files": ["src/Core/helpers.php"]
     },
     "autoload-dev": {
         "psr-4": { "Tests\\": "tests/" }
