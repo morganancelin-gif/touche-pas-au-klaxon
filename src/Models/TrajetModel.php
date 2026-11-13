@@ -75,4 +75,67 @@ class TrajetModel
 
         return $stmt->rowCount() === 1;
     }
+
+    /**
+     * Enregistre un nouveau trajet.
+     *
+     * @param array{id_agence_depart: int, id_agence_arrivee: int, date_heure_depart: string,
+     *              date_heure_arrivee: string, nb_places_total: int, nb_places_disponibles: int,
+     *              id_employe: int} $data Données validées.
+     *
+     * @return int Identifiant du trajet créé.
+     */
+    public function create(array $data): int
+    {
+        $stmt = $this->pdo->prepare(
+            'INSERT INTO trajet (date_heure_depart, date_heure_arrivee, nb_places_total,
+                                 nb_places_disponibles, id_employe, id_agence_depart, id_agence_arrivee)
+             VALUES (:date_heure_depart, :date_heure_arrivee, :nb_places_total,
+                     :nb_places_disponibles, :id_employe, :id_agence_depart, :id_agence_arrivee)'
+        );
+        $stmt->execute([
+            'date_heure_depart'     => $data['date_heure_depart'],
+            'date_heure_arrivee'    => $data['date_heure_arrivee'],
+            'nb_places_total'       => $data['nb_places_total'],
+            'nb_places_disponibles' => $data['nb_places_disponibles'],
+            'id_employe'            => $data['id_employe'],
+            'id_agence_depart'      => $data['id_agence_depart'],
+            'id_agence_arrivee'     => $data['id_agence_arrivee'],
+        ]);
+
+        return (int) $this->pdo->lastInsertId();
+    }
+
+    /**
+     * Met à jour un trajet existant. L'auteur du trajet n'est jamais modifié.
+     *
+     * @param int $id Identifiant du trajet.
+     * @param array{id_agence_depart: int, id_agence_arrivee: int, date_heure_depart: string,
+     *              date_heure_arrivee: string, nb_places_total: int, nb_places_disponibles: int} $data
+     *        Données validées.
+     *
+     * @return void
+     */
+    public function update(int $id, array $data): void
+    {
+        $stmt = $this->pdo->prepare(
+            'UPDATE trajet
+             SET date_heure_depart = :date_heure_depart,
+                 date_heure_arrivee = :date_heure_arrivee,
+                 nb_places_total = :nb_places_total,
+                 nb_places_disponibles = :nb_places_disponibles,
+                 id_agence_depart = :id_agence_depart,
+                 id_agence_arrivee = :id_agence_arrivee
+             WHERE id_trajet = :id'
+        );
+        $stmt->execute([
+            'date_heure_depart'     => $data['date_heure_depart'],
+            'date_heure_arrivee'    => $data['date_heure_arrivee'],
+            'nb_places_total'       => $data['nb_places_total'],
+            'nb_places_disponibles' => $data['nb_places_disponibles'],
+            'id_agence_depart'      => $data['id_agence_depart'],
+            'id_agence_arrivee'     => $data['id_agence_arrivee'],
+            'id'                    => $id,
+        ]);
+    }
 }

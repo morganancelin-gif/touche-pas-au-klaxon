@@ -39,4 +39,24 @@ class EmployeModel
 
         return $employe === false ? null : $employe;
     }
+
+    /**
+     * Recherche un employé par son identifiant (sans son mot de passe).
+     *
+     * @param int $id Identifiant de l'employé.
+     *
+     * @return array<string, mixed>|null L'employé, ou null s'il n'existe pas.
+     */
+    public function findById(int $id): ?array
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT id_employe, nom, prenom, telephone, email, role
+             FROM employe
+             WHERE id_employe = :id'
+        );
+        $stmt->execute(['id' => $id]);
+        $employe = $stmt->fetch();
+
+        return $employe === false ? null : $employe;
+    }
 }
