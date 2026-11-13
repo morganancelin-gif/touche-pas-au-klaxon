@@ -1,0 +1,21 @@
+// ==========================================================
+// Feuille de style principale : Bootstrap personnalisé
+// Compilée vers public/css/app.css (npm run sass:build)
+// ==========================================================
+
+// 1. Nos variables, AVANT Bootstrap : elles remplacent ses valeurs par défaut
+@import "variables";
+
+// 2. Bootstrap complet
+@import "bootstrap/scss/bootstrap";
+
+// 3. Ajustements propres à l'application
+.app-header {
+    border: 1px solid $dark;
+}
+
+.table-trajets {
+    thead th {
+        white-space: nowrap;
+    }
+}
