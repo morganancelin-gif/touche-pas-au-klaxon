@@ -81,7 +81,8 @@ final class TrajetValidator
         );
 
         if ($total !== null && $disponibles !== null && $disponibles > $total) {
-            $this->errors['nb_places_disponibles'] = 'Les places disponibles ne peuvent pas dépasser le nombre total de places.';
+            $this->errors['nb_places_disponibles'] =
+                'Les places disponibles ne peuvent pas dépasser le nombre total de places.';
         }
 
         if (

@@ -28,7 +28,7 @@ class AgenceModel
         $stmt = $this->pdo->prepare('SELECT id_agence, nom FROM agence ORDER BY nom ASC');
         $stmt->execute();
 
-        return $stmt->fetchAll();
+        return array_values($stmt->fetchAll());
     }
 
     /**
@@ -48,7 +48,7 @@ class AgenceModel
         );
         $stmt->execute();
 
-        return $stmt->fetchAll();
+        return array_values($stmt->fetchAll());
     }
 
     /**

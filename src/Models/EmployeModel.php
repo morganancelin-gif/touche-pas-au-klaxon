@@ -74,6 +74,6 @@ class EmployeModel
         );
         $stmt->execute();
 
-        return $stmt->fetchAll();
+        return array_values($stmt->fetchAll());
     }
 }

@@ -49,7 +49,23 @@ final class Auth
     {
         $user = $_SESSION[self::SESSION_KEY] ?? null;
 
-        return is_array($user) ? $user : null;
+        // Vérifie la structure des données de session avant de les utiliser
+        if (
+            !is_array($user)
+            || !is_int($user['id'] ?? null)
+            || !is_string($user['nom'] ?? null)
+            || !is_string($user['prenom'] ?? null)
+            || !is_string($user['role'] ?? null)
+        ) {
+            return null;
+        }
+
+        return [
+        'id'     => $user['id'],
+        'nom'    => $user['nom'],
+        'prenom' => $user['prenom'],
+        'role'   => $user['role'],
+        ];
     }
 
     /**

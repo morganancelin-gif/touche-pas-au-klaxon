@@ -19,16 +19,20 @@
         "platform": { "php": "8.2.4" },
         "sort-packages": true
     },
-    "scripts": {
+        "scripts": {
         "start": [
             "Composer\\Config::disableProcessTimeout",
             "php -S localhost:4000 -t public"
         ],
-        "test": "phpunit",
-        "stan": "phpstan analyse"
+        "test": "phpunit --testdox",
+        "stan": "phpstan analyse --memory-limit=1G",
+        "cs": "phpcs",
+        "cs-fix": "phpcbf",
+        "check": ["@cs", "@stan", "@test"]
     },
     "require-dev": {
         "phpstan/phpstan": "^2.3",
-        "phpunit/phpunit": "^11.5"
+        "phpunit/phpunit": "^11.5",
+        "squizlabs/php_codesniffer": "^4.0"
     }
 }

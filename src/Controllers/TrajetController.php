@@ -61,7 +61,13 @@ class TrajetController extends Controller
         $data = $validator->validate($input, $this->agencesValides(), new DateTimeImmutable());
 
         if ($data === null) {
-            return $this->renderForm('Créer un trajet', '/trajet/creer', $input, $validator->errors(), (int) Auth::id());
+            return $this->renderForm(
+                'Créer un trajet',
+                '/trajet/creer',
+                $input,
+                $validator->errors(),
+                (int) Auth::id()
+            );
         }
 
         try {
@@ -74,7 +80,7 @@ class TrajetController extends Controller
                 'Créer un trajet',
                 '/trajet/creer',
                 $input,
-                ['global' => "L'enregistrement a échoué. Merci de réessayer."],
+                $validator->errors(),
                 (int) Auth::id()
             );
         }
@@ -103,7 +109,13 @@ class TrajetController extends Controller
             'nb_places_disponibles' => (string) $trajet['nb_places_disponibles'],
         ];
 
-        return $this->renderForm('Modifier le trajet', "/trajet/{$id}/modifier", $valeurs, [], (int) $trajet['id_employe']);
+        return $this->renderForm(
+            'Modifier le trajet',
+            "/trajet/{$id}/modifier",
+            $valeurs,
+            [],
+            (int) $trajet['id_employe']
+        );
     }
 
     /**
@@ -136,7 +148,7 @@ class TrajetController extends Controller
                 'Modifier le trajet',
                 $action,
                 $input,
-                ['global' => "L'enregistrement a échoué. Merci de réessayer."],
+                $validator->errors(),
                 $auteurId
             );
         }

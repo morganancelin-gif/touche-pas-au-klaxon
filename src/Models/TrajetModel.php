@@ -42,7 +42,7 @@ class TrajetModel
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
 
-        return $stmt->fetchAll();
+        return array_values($stmt->fetchAll());
     }
 
     /**
@@ -160,6 +160,6 @@ class TrajetModel
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
 
-        return $stmt->fetchAll();
+        return array_values($stmt->fetchAll());
     }
 }

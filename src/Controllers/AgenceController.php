@@ -111,7 +111,12 @@ class AgenceController extends Controller
         } catch (PDOException $e) {
             error_log($e->getMessage());
 
-            return $this->renderForm('Modifier une agence', $action, $saisie, "L'enregistrement a échoué. Merci de réessayer.");
+            return $this->renderForm(
+                'Modifier une agence',
+                $action,
+                $saisie,
+                "L'enregistrement a échoué. Merci de réessayer."
+            );
         }
 
         Flash::add('success', "L'agence {$nom} a été modifiée.");
@@ -146,7 +151,10 @@ class AgenceController extends Controller
             $agenceModel->delete($id);
         } catch (PDOException $e) {
             error_log($e->getMessage());
-            Flash::add('danger', "Impossible de supprimer l'agence {$agence['nom']} : elle est utilisée par des trajets.");
+            Flash::add(
+                'danger',
+                "Impossible de supprimer l'agence {$agence['nom']} : elle est utilisée par des trajets."
+            );
             $this->redirect('/admin/agences');
         }
 
