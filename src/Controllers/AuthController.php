@@ -66,8 +66,10 @@ class AuthController extends Controller
             'role'   => (string) $employe['role'],
         ]);
 
-        Flash::add('success', 'Bonjour ' . $employe['prenom'] . ', vous êtes connecté.');
-        $this->redirect('/');
+                    Flash::add('success', 'Bonjour ' . $employe['prenom'] . ', vous êtes connecté.');
+
+        // L'administrateur arrive sur son tableau de bord
+        $this->redirect(Auth::isAdmin() ? '/admin' : '/');
     }
 
     /**

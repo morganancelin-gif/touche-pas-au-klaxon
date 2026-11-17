@@ -59,4 +59,21 @@ class EmployeModel
 
         return $employe === false ? null : $employe;
     }
+
+    /**
+     * Liste tous les employés (sans leur mot de passe), par ordre alphabétique.
+     *
+     * @return list<array<string, mixed>>
+     */
+    public function findAll(): array
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT id_employe, nom, prenom, telephone, email, role
+             FROM employe
+             ORDER BY nom ASC, prenom ASC'
+        );
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
 }

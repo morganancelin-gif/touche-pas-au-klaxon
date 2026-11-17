@@ -29,3 +29,19 @@ $router->post('/trajet/creer', 'TrajetController@store', ['before' => ['CsrfMidd
 $router->get('/trajet/:id/modifier', 'TrajetController@edit', ['before' => 'AuthMiddleware']);
 $router->post('/trajet/:id/modifier', 'TrajetController@update', ['before' => ['CsrfMiddleware', 'AuthMiddleware']]);
 $router->post('/trajet/:id/supprimer', 'TrajetController@delete', ['before' => ['CsrfMiddleware', 'AuthMiddleware']]);
+
+// Administration : tout le groupe /admin est réservé aux administrateurs
+$router->group('/admin', function ($router): void {
+    $router->get('/', 'AdminController@dashboard');
+    $router->get('/utilisateurs', 'AdminController@utilisateurs');
+
+    $router->get('/trajets', 'AdminController@trajets');
+    $router->post('/trajets/:id/supprimer', 'AdminController@supprimerTrajet', ['before' => 'CsrfMiddleware']);
+
+    $router->get('/agences', 'AgenceController@index');
+    $router->get('/agences/creer', 'AgenceController@create');
+    $router->post('/agences/creer', 'AgenceController@store', ['before' => 'CsrfMiddleware']);
+    $router->get('/agences/:id/modifier', 'AgenceController@edit');
+    $router->post('/agences/:id/modifier', 'AgenceController@update', ['before' => 'CsrfMiddleware']);
+    $router->post('/agences/:id/supprimer', 'AgenceController@delete', ['before' => 'CsrfMiddleware']);
+}, ['before' => 'AdminMiddleware']);

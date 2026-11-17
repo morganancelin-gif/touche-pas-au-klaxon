@@ -138,4 +138,28 @@ class TrajetModel
             'id'                    => $id,
         ]);
     }
+
+    /**
+     * Liste tous les trajets (passés, complets compris), du plus récent au plus ancien.
+     * Réservé au tableau de bord administrateur.
+     *
+     * @return list<array<string, mixed>>
+     */
+    public function findAll(): array
+    {
+        $sql = 'SELECT t.id_trajet, t.date_heure_depart, t.date_heure_arrivee,
+                       t.nb_places_total, t.nb_places_disponibles,
+                       ad.nom AS agence_depart, aa.nom AS agence_arrivee,
+                       e.nom AS auteur_nom, e.prenom AS auteur_prenom
+                FROM trajet t
+                JOIN agence ad ON ad.id_agence = t.id_agence_depart
+                JOIN agence aa ON aa.id_agence = t.id_agence_arrivee
+                JOIN employe e ON e.id_employe = t.id_employe
+                ORDER BY t.date_heure_depart DESC';
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
 }
